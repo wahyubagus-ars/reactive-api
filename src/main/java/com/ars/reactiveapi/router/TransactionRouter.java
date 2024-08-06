@@ -15,9 +15,9 @@ public class TransactionRouter {
     @Bean
     public RouterFunction<ServerResponse> transactionRoute(TransactionHandler transactionHandler) {
         return RouterFunctions
-                .route(RequestPredicates.GET("/transaction/")
-                        .and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), transactionHandler::getTransactionData)
-                .andRoute(RequestPredicates.GET("/transaction/submit")
-                        .and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), transactionHandler::submitTransaction);
+                .route(RequestPredicates.GET("/transaction")
+                        .and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), transactionHandler::getTransactionData)
+                .andRoute(RequestPredicates.POST("/transaction/submit")
+                        .and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), transactionHandler::submitTransaction);
     }
 }

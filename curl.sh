@@ -1,7 +1,7 @@
 #!/bin/bash
 
-API_ENDPOINT="http://localhost:8080/api/transaction/"
-API_ENDPOINT_2="http://localhost:8080/api/transaction/submit"
+GET_TRANSACTION_API="http://localhost:8080/api/transaction"
+SUBMIT_TRANSACTION_API="http://localhost:8080/api/transaction/submit"
 
 # Get the start time
 start_time=$(date '+%Y-%m-%d %H:%M:%S')
@@ -12,11 +12,16 @@ echo "Start time: $start_time"
 for i in {1..1000}
 do
    if [ $((i % 2)) -eq 0 ]; then
-       curl -X GET "$API_ENDPOINT_2" &
-       echo -e "\nRequest $i to API_ENDPOINT_2 completed."
+        curl --location "$SUBMIT_TRANSACTION_API" \
+              --header 'Content-Type: application/json' \
+              --data '{
+                  "userId": 2,
+                  "paymentMethod": "QRIS"
+              }' &
+       echo -e "\nRequest $i to SUBMIT_TRANSACTION_API completed."
    else
-       curl -X GET "$API_ENDPOINT" &
-       echo -e "\nRequest $i to API_ENDPOINT_1 completed."
+       curl -X GET "$GET_TRANSACTION_API" &
+       echo -e "\nRequest $i to GET_TRANSACTION_1 completed."
    fi
 done
 
