@@ -37,8 +37,7 @@ public class TransactionService {
                     .paymentMethod(r.getPaymentMethod())
                     .build();
 
-            return transactionRepository.save(transaction)
-                    .delayElement(Duration.ofSeconds(5));
+            return transactionRepository.save(transaction);
         });
     }
 
