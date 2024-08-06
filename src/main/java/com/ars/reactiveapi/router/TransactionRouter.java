@@ -16,7 +16,7 @@ public class TransactionRouter {
     public RouterFunction<ServerResponse> transactionRoute(TransactionHandler transactionHandler) {
         return RouterFunctions
                 .route(RequestPredicates.GET("/transaction/")
-                        .and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), transactionHandler::getTransactionData)
+                        .and(RequestPredicates.accept(MediaType.APPLICATION_NDJSON)), transactionHandler::getTransactionData)
                 .andRoute(RequestPredicates.GET("/transaction/submit")
                         .and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), transactionHandler::submitTransaction);
     }

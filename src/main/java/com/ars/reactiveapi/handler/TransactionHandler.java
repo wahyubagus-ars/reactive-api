@@ -19,7 +19,7 @@ public class TransactionHandler {
     }
 
     public @NotNull Mono<ServerResponse> getTransactionData(ServerRequest request) {
-        return ServerResponse.ok().body(transactionService.getTransactionData(request), Transaction.class);
+        return ServerResponse.ok().body(transactionService.getTransactionData(), Transaction.class);
     }
 
     public @NotNull Mono<ServerResponse> submitTransaction(ServerRequest request) {
