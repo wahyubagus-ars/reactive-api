@@ -1,5 +1,6 @@
 package com.ars.reactiveapi.handler;
 
+import com.ars.reactiveapi.dto.SubmitTransactionReq;
 import com.ars.reactiveapi.entity.Transaction;
 import com.ars.reactiveapi.service.TransactionService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,7 @@ public class TransactionHandler {
     }
 
     public @NotNull Mono<ServerResponse> submitTransaction(ServerRequest request) {
-        return ServerResponse.ok().body(transactionService.submitTransaction(request), Transaction.class);
+        Mono<SubmitTransactionReq> requestData = request.bodyToMono(SubmitTransactionReq.class);
+        return ServerResponse.ok().body(transactionService.submitTransaction(requestData), Transaction.class);
     }
 }

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GET_TRANSACTION_API="http://localhost:8080/api/transaction/"
+GET_TRANSACTION_API="http://localhost:8080/api/transaction"
 SUBMIT_TRANSACTION_API="http://localhost:8080/api/transaction/submit"
 
 # Get the start time
@@ -12,7 +12,12 @@ echo "Start time: $start_time"
 for i in {1..1000}
 do
    if [ $((i % 2)) -eq 0 ]; then
-       curl -X GET "$SUBMIT_TRANSACTION_API" &
+        curl --location "$SUBMIT_TRANSACTION_API" \
+              --header 'Content-Type: application/json' \
+              --data '{
+                  "userId": 2,
+                  "paymentMethod": "QRIS"
+              }' &
        echo -e "\nRequest $i to SUBMIT_TRANSACTION_API completed."
    else
        curl -X GET "$GET_TRANSACTION_API" &
