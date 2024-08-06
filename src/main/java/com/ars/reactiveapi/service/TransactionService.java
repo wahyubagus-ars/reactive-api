@@ -27,7 +27,6 @@ public class TransactionService {
                 .limitRate(5);
     }
 
-
     public Mono<Transaction> submitTransaction(Mono<SubmitTransactionReq> request) {
         return request.flatMap(r -> {
             Transaction transaction = Transaction.builder()
@@ -39,23 +38,5 @@ public class TransactionService {
 
             return transactionRepository.save(transaction);
         });
-    }
-
-    public static class DataEntry {
-        private final Transaction transaction;
-        private final Instant timestamp;
-
-        public DataEntry(Transaction transaction, Instant timestamp) {
-            this.transaction = transaction;
-            this.timestamp = timestamp;
-        }
-
-        public Transaction getTransaction() {
-            return transaction;
-        }
-
-        public Instant getTimestamp() {
-            return timestamp;
-        }
     }
 }
